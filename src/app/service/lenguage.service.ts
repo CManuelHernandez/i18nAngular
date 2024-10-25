@@ -13,7 +13,11 @@ export class LanguageService {
   cookie = inject(SsrCookieService);
   translate = inject(TranslateService);
 
-  currentLang = signal('');
+  langServer = inject(SERVER_LANG_TOKEN, {
+    optional: true,
+  });
+
+  currentLang = signal(this.langServer ?? 'en');
 
   changeLang(lang: string) {
     this.cookie.set('lang', lang);
